@@ -1,0 +1,77 @@
+import random
+import time
+
+def solucionInicial(n=8):
+    tablero = list(range(1, n + 1))
+    random.shuffle(tablero)
+    return tablero
+
+def funcionObjetivo(tablero):
+    c = 0
+    n = len(tablero)
+
+    for i in range(n):
+        for j in range(i + 1, n):
+            if abs(tablero[i] - tablero[j]) == abs(i - j):
+                c += 1
+    return c
+
+def vecinos(tablero, cantidad):
+    lista = []
+    n = len(tablero)
+
+    for _ in range(cantidad):
+        nuevo = tablero.copy()
+        i, j = random.sample(range(n), 2)
+        nuevo[i], nuevo[j] = nuevo[j], nuevo[i]
+        lista.append(nuevo)
+
+    return lista
+
+#def mostrar_vecinos(lista_vecinos):
+#    print("\nVecinos generados:\n")
+#    for i, v in enumerate(lista_vecinos):
+#        print(f"Vecino {i+1}: {v} -> Conflictos: {funcionObjetivo(v)}")
+
+def tabu(iteraciones=5000, limitetabu=50, n_vecinos=30):
+    actual = solucionInicial()
+    mejor = actual
+    mejor_costo = funcionObjetivo(actual)
+
+    lista_tabu = []
+    movimientos = 0
+    inicio = time.time()
+
+    for _ in range(iteraciones):
+        lista_vecinos = vecinos(actual, n_vecinos)
+
+        #mostrar_vecinos(lista_vecinos)
+
+        lista_vecinos.sort(key=lambda x: funcionObjetivo(x))
+
+        for v in lista_vecinos:
+            if tuple(v) not in lista_tabu:
+                actual = v
+                lista_tabu.append(tuple(v))
+                movimientos += 1
+
+                c = funcionObjetivo(v)
+                if c < mejor_costo:
+                    mejor = v
+                    mejor_costo = c
+                break
+
+        if len(lista_tabu) > limitetabu:
+            lista_tabu.pop(0)
+
+        if mejor_costo == 0:
+            break
+
+    fin = time.time()
+    return mejor, mejor_costo, movimientos, fin - inicio
+
+sol, cost, mov, t = tabu()
+print("\nSolución:", sol)
+print("Conflictos:", cost)
+print("Movimientos:", mov)
+print("Tiempo:", round(t, 4), "s")
