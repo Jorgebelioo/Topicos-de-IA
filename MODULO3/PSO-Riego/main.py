@@ -4,12 +4,11 @@ from optimizador_sensores import OptimizadorSensores
 from visualizar import Visualizar
 
 if __name__ == "__main__":
-    # Se crea el objeto Datos y se cargan los datos del csv de cultivos
+    
     datocsv = Datos("datos/cultivos.csv")
     data = datocsv.get_datos()
 
-    # Creamos el objeto optimizador_sensores que preparara las variables para
-    # encontrar la mejor distribución de sensores
+    
     optimizador = OptimizadorSensores(data, n_sensores=5)
     mejor_costo, mejor_posicion = optimizador.optimizar(iters=30)
     mejores_posiciones = optimizador.get_mejores_posiciones()
