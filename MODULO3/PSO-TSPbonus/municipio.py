@@ -1,6 +1,6 @@
 import numpy as np
 
-# Matriz global de distancias reales (en km) entre ciudades
+# Matriz global de distancias (en km) entre ciudades
 _matrizDistancias = None
 _indiceCiudades = {}
 
