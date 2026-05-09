@@ -2,7 +2,6 @@ import numpy as np
 import pyswarms as ps
 
 class OptimizadorSensores:
-    # Prepara las variables para la optimización de la distribución de sensores
     def __init__(self, data, n_sensores):
         self.data = data
         self.n_sensores = n_sensores
