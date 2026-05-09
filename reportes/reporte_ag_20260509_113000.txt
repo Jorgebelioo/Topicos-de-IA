@@ -1,0 +1,10 @@
+REPORTE ALGORITMO GENÉTICO - TSP
+========================================
+Fecha: 09/05/2026 11:30:00
+
+Distancia inicial: 7318.0000
+Distancia final:   3883.0000
+Mejora obtenida:   46.94%
+
+MEJOR RUTA ENCONTRADA:
+Zaragoza -> Madrid -> L'Hospitalet -> Vigo -> Sevilla -> Bilbao -> Murcia -> A Coruña -> Málaga -> Valladolid -> Alicante -> Valencia -> Palma -> Gijón -> Elche -> Barcelona -> Granada -> Las Palmas -> Córdoba -> Vitoria -> Zaragoza
