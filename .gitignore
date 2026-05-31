@@ -1,0 +1,17 @@
+# Entorno virtual
+venv/
+
+# Dataset facial
+MODULO4/bd/*
+!MODULO4/bd/README.md
+
+# Dataset de pruebas
+MODULO4/test/*
+!MODULO4/test/README.md
+
+# Base de datos
+estudiantes.db
+
+# Python
+__pycache__/
+*.pyc
