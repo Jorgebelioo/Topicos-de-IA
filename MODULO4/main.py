@@ -1,10 +1,6 @@
 import os
 import warnings
 
-# ============================================
-# SUPRIMIR WARNINGS TENSORFLOW
-# ============================================
-
 os.environ['TF_ENABLE_ONEDNN_OPTS'] = '0'
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
@@ -22,10 +18,6 @@ tf.get_logger().setLevel('ERROR')
 
 from deepface import DeepFace
 
-# ============================================
-# GPU
-# ============================================
-
 gpus = tf.config.experimental.list_physical_devices('GPU')
 
 if gpus:
@@ -37,13 +29,8 @@ if gpus:
 
     except RuntimeError:
         pass
-
 else:
     print("No se detectó GPU, usando CPU")
-
-# ============================================
-# CONFIGURACIÓN
-# ============================================
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -53,10 +40,6 @@ DB_PATH = os.path.join(BASE_DIR, "../estudiantes.db")
 
 MODEL_NAME = "Facenet"
 
-# ============================================
-# VERIFICAR BASE DE DATOS SQLITE
-# ============================================
-
 if not os.path.exists(DB_PATH):
     print(f"ERROR: No existe la base de datos: {DB_PATH}")
     exit()
@@ -65,17 +48,9 @@ conexion = sqlite3.connect(DB_PATH)
 
 cursor = conexion.cursor()
 
-# ============================================
-# VERIFICAR DATASET
-# ============================================
-
 if not os.path.exists(DATABASE_PATH):
     print(f"ERROR: No existe la carpeta: {DATABASE_PATH}")
     exit()
-
-# ============================================
-# OPENCV
-# ============================================
 
 cascade_path = (
     cv2.data.haarcascades +
@@ -87,10 +62,6 @@ if not os.path.exists(cascade_path):
     exit()
 
 face_cascade = cv2.CascadeClassifier(cascade_path)
-
-# ============================================
-# CÁMARA
-# ============================================
 
 cap = cv2.VideoCapture(0)
 
@@ -110,10 +81,6 @@ cap.set(cv2.CAP_PROP_FPS, 30)
 
 print("Sistema iniciado. Presiona 'q' para salir...")
 
-# ============================================
-# VARIABLES
-# ============================================
-
 nombre_cache = "Desconocido"
 
 id_cache = ""
@@ -128,19 +95,11 @@ ultimo_reconocimiento = 0
 
 INTERVALO_RECONOCIMIENTO = 2
 
-# ============================================
-# FPS Y TIEMPO
-# ============================================
-
 prev_time = time.time()
 
 fps = 0
 
 tiempo_reconocimiento = 0
-
-# ============================================
-# LOOP PRINCIPAL
-# ============================================
 
 while True:
 
@@ -150,15 +109,9 @@ while True:
         print("Error leyendo cámara")
         break
 
-    # espejo horizontal
-
     frame = cv2.flip(frame, 1)
 
-    # resolución
-
     frame_small = cv2.resize(frame, (480, 360))
-
-    # detección rápida
 
     gray = cv2.cvtColor(
         frame_small,
@@ -171,10 +124,6 @@ while True:
         minNeighbors=5,
         minSize=(30, 30)
     )
-
-    # ========================================
-    # CARAS DETECTADAS
-    # ========================================
 
     for (x, y, w, h) in faces:
 
@@ -238,16 +187,10 @@ while True:
                     f"{tiempo_reconocimiento:.2f} s"
                 )
 
-                # reset
-
                 nombre_cache = "Desconocido"
-
                 id_cache = ""
-
                 edad_cache = ""
-
                 semestre_cache = ""
-
                 carrera_cache = ""
 
                 if resultado and len(resultado) > 0:
@@ -304,10 +247,6 @@ while True:
                 semestre_cache = ""
 
                 carrera_cache = ""
-
-        # ====================================
-        # MOSTRAR INFORMACIÓN
-        # ====================================
 
         cv2.putText(
             frame_small,
@@ -367,10 +306,6 @@ while True:
                 2
             )
 
-    # ========================================
-    # FPS
-    # ========================================
-
     current_time = time.time()
 
     fps = 1 / (current_time - prev_time)
@@ -405,10 +340,6 @@ while True:
 
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
-
-# ============================================
-# CERRAR
-# ============================================
 
 cap.release()
 

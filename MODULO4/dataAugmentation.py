@@ -2,17 +2,10 @@ import cv2
 import os
 import albumentations as A
 
-# ============================================
-# CONFIGURACION
-# ============================================
-
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DATASET_PATH = os.path.join(BASE_DIR, "bd")
 
-# ============================================
-# AUGMENTATIONS
-# ============================================
-
+#augments
 transform = A.Compose([
 
     A.HorizontalFlip(p=1),
@@ -39,9 +32,7 @@ transform = A.Compose([
 
 ])
 
-# ============================================
-# RECORRER PERSONAS
-# ============================================
+#recorrer personas
 
 for persona in os.listdir(DATASET_PATH):
 
@@ -64,9 +55,7 @@ for persona in os.listdir(DATASET_PATH):
         if image is None:
             continue
 
-        # ============================================
-        # GENERAR 5 IMAGENES AUMENTADAS
-        # ============================================
+        #generar 5 imagenes
 
         for i in range(5):
 

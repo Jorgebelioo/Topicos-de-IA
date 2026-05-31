@@ -16,11 +16,15 @@ CREATE TABLE IF NOT EXISTS estudiantes (
 
 datos = [
     ("Jorge", 21170363, 22, "Ing en sistemas", 10),
-    ("Diego", 2217, 21, "Ing en sistemas", 8),
+    ("Diego", 22170761, 21, "Ing en sistemas", 8),
     ("Karim", 23171159, 24, "Ing en sistemas", 6),
     ("Miguel", 19170561, 24, "Ing en sistemas", 14),
     ("Valeria", 19170631, 24, "Ing en sistemas", 14),
-    ("German", 18170521, 25, "Lic en derecho", 18)
+    ("German", 18170521, 25, "Ing en gestion", 18),
+
+    ("Dulce", 24170001, 22, "Ing en sistemas", 8),
+    ("Flor", 24170002, 21, "Ing en sistemas", 7),
+    ("Majo", 24170003, 22, "Ing en gestion emp", 9)
 ]
 
 cursor.executemany("""
